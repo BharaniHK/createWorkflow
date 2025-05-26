@@ -23,7 +23,7 @@ jobs:
           if [[ ${{ github.event_name }} == 'pull_request' ]]; then
             echo Hello
           else
-            echo World
+            echo changed_files=$(git diff --name-only -r HEAD^1 HEAD)
           fi
 
       - name: Run a multi-line script
