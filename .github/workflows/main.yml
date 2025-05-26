@@ -1,27 +1,52 @@
-name: Test
+name: Check For Changes to Monitored Files
 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows running this workflow manually from the Actions tab
-  workflow_dispatch:
+    branches:
+      - development
 
 jobs:
-  # Contains a single job called "build"
-  build:
+  check_changes_and_alert:
     runs-on: ubuntu-latest
+
     steps:
-      # Checks out repository under $GITHUB_WORKSPACE, so job can access it
-      - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
 
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+    - name: Check and Alert if watched files changed
+      id: check-and-alert
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        # Define the list of filenames to watch for changes
+     #   watched_files=("config.json" "application.conf")
+        if [[ ${{ github.event_name }} == 'pull_request' ]]; then
+          changed_files=$(git diff --name-only -r HEAD^1 HEAD)
+        else
+          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
+        fi
+       
+	 - name: List Changed files
+	   id: echo-changed-files
+	   run: | 
+      for file in $changed_files; do
+			echo "$file is changed"
+		done
+	 - name : Check for class attribute change 
+	 continue-on-error: true
+		id: attributes-match
+		 env:
+			SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+		run: | 
+      grep -Ri --include \*.jsx 'name' ./tmp/bla > ./tmp/results.txt
+    shell: bash
+	
+	
+	 - name: Check for id attribute change 
+    continue-on-error: true
+    id: grep
+    run: | 
+      grep -Ri --include \*.jsx 'id' ./tmp/bla > ./tmp/results.txt
+    shell: bash
