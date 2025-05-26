@@ -26,7 +26,8 @@ jobs:
             echo changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           fi
 
-      - name: Run a multi-line script
+      - name:  Check for class attribute change 
+        continue-on-error: true
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+           grep -Ri --include \*.jsx 'name' ./tmp/bla > ./tmp/results.txt
+           shell: bash
