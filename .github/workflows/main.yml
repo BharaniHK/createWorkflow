@@ -20,21 +20,14 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
-        # Define the list of filenames to watch for changes
-     #   watched_files=("config.json" "application.conf")
-        if [[ ${{ github.event_name }} == 'pull_request' ]]; then
-          changed_files=$(git diff --name-only -r HEAD^1 HEAD)
-        else
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-        fi
-       
-	 - name: List Changed files
+           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
+    - name: List Changed files
 	   id: echo-changed-files
 	   run: | 
-      for file in $changed_files; do
-			echo "$file is changed"
-		done
-	 - name : Check for class attribute change 
+	        for file in $changed_files; do
+		 echo "$file is changed"
+	        done
+     - name : Check for class attribute change 
 	 continue-on-error: true
 		id: attributes-match
 		 env:
