@@ -29,5 +29,5 @@ jobs:
       - name:  Check for class attribute change 
         continue-on-error: true
         run: |
-           grep -Ri --include \*.jsx 'name' ./tmp/bla > ../temp/results.txt
+           grep -Ri --include \*.jsx 'name' ./tmp/bla > ../../temp/results.txt
            shell: bash
