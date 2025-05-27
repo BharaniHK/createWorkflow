@@ -17,8 +17,6 @@ jobs:
 
     - name: Check and Alert if watched files changed
       id: check-and-alert
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       run: |
         # Define the list of filenames to watch for changes
         watched_files=("config.json" "application.conf")
