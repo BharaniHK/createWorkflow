@@ -25,5 +25,6 @@ jobs:
         else
           echo changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           grep -r name *
+          grep -r id *
         fi
         
