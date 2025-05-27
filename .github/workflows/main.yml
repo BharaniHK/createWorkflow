@@ -21,14 +21,8 @@ jobs:
         # Define the list of filenames to watch for changes
         watched_files=("config.json" "application.conf")
         if [[ ${{ github.event_name }} == 'pull_request' ]]; then
-          changed_files=$(git diff --name-only -r HEAD^1 HEAD)
+          echo changed_files=$(git diff --name-only -r HEAD^1 HEAD)
         else
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
+          echo changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
         fi
-        for file in $changed_files; do
-          for watched_file in "${watched_files[@]}"; do
-            if [[ $file == *"$watched_file"* ]]; then
-              curl -X POST -H 'Content-type: application/json' --data '{"text":"File changed: '"$file"' "}' $SLACK_WEBHOOK_URL
-            fi
-          done
-        done
+        
