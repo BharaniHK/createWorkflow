@@ -5,11 +5,12 @@ on:
     branches: 
        - main
        - development
-        
-  push:
-    branches: 
-       - main
 
+       
+  push:
+    branches:
+      - main
+      
 jobs:
   check_changes_and_alert:
     runs-on: ubuntu-latest
