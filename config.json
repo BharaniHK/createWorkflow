@@ -1,0 +1,18 @@
+{
+  "appName": "My Application",
+  "version": "1.0.0",
+  "environment": "development",
+  "apiEndpoint": "https://api.example.com",
+  "features": {
+    "darkMode": false,
+    "notifications": true
+  },
+  "theme": {
+    "primaryColor": "#007bff",
+    "secondaryColor": "#6c757d"
+  },
+  "authentication": {
+    "jwtSecret": "your-secret-key",
+    "tokenExpiration": "1h"
+  }
+}
