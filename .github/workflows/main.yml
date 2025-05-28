@@ -26,9 +26,9 @@ jobs:
       run: |
         # Define the list of filenames to watch for changes
         if [[ ${{ github.event_name }} == 'pull_request' ]]; then
-          echo changed_files=$(git diff --name-only -r HEAD^1 HEAD)
+          echo Hello
         else
-          echo changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
+          echo world
           for i in $changed_files 
           do
             echo hello $i
