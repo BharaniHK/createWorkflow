@@ -29,9 +29,9 @@ jobs:
           echo changed_files=$(git diff --name-only -r HEAD^1 HEAD)
         else
           echo changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          grep  -r name $changed_files
-          grep -r id *
-          cat results.txt
-          cat comp/second.jsx
+          for file in $changed_files; do
+			      echo "$file is changed"
+          done
+          
         fi
         
