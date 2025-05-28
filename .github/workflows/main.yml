@@ -5,6 +5,11 @@ on:
     branches: 
        - main
        - development
+
+  push:
+    branches: 
+       - main
+       - development
       
 jobs:
   check_changes_and_alert:
