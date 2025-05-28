@@ -31,7 +31,7 @@ jobs:
           echo changed_files=$(git diff --name-only -r HEAD^1 HEAD)
         else
           echo changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          grep -r name * >> results.txt
+          grep -r name *.jsx >> results.txt
           grep -r id *
         fi
         
