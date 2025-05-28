@@ -32,5 +32,6 @@ jobs:
           grep -r name  * >> results.txt
           grep -r id *
           cat results.txt
+          cat comp/second.jsx
         fi
         
