@@ -29,8 +29,7 @@ jobs:
           echo Hello
         else
           echo world
-          for i in $changed_files 
-          do
+          for i in $changed_files; do
             echo hello $i
             grep -r name $i
           done
