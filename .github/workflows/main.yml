@@ -29,8 +29,8 @@ jobs:
           echo Hello
         else
           changed_files=$(git diff ${{ github.event.before }} ${{ github.event.after }})
-          echo ${ github.event.before }
-          echo ${ github.event.after }
+          echo ${{ github.event.before }}
+          echo ${{ github.event.after }}
           for i in $changed_files; do
             echo hello $i
             grep -r name $i
