@@ -26,7 +26,18 @@ jobs:
       run: |
         # Define the list of filenames to watch for changes
         if [[ ${{ github.event_name }} == 'pull_request' ]]; then
-          echo Hello
+          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
+          for i in $changed_files; do
+            echo files changed $i
+            if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
+             echo "$i is .jsx file"
+             grep -w 'name' $i
+             git log -p -n 1 -- $i
+            else
+             echo "$i is NOT .jsx or .html file"
+             #git log -p -n 1 -- $i
+            fi
+          done 
         else
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           for i in $changed_files; do
