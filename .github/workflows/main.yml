@@ -30,7 +30,7 @@ jobs:
         else
           changed_files=$(git diff --name-status ${{ github.event.before }} ${{ github.event.after }})
          
-          echo changed_files 
+          echo $changed_files 
           
           
         fi
