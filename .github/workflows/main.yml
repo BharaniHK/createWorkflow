@@ -1,4 +1,4 @@
-name: Check For Changes to Monitored Files
+o name: Check For Changes to Monitored Files
 
 on:
   pull_request:
@@ -30,7 +30,7 @@ jobs:
         else
           changed_files=$(git diff --name-status ${{ github.event.before }} ${{ github.event.after }})
          
-          echo $changed_files 
+          echo Hello $changed_files 
           
           
         fi
