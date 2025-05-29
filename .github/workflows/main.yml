@@ -33,7 +33,6 @@ jobs:
           for i in $changed_files; do
             echo hello $i
             echo git diff $i
-            grep -r name $i
           done
         fi
         
