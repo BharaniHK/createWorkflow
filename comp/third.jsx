@@ -5,7 +5,7 @@ function Third() {
     textAlign: "center",
   }
   return(
-    <div>
+    <div> 
       <p id="third">Third</p>
        <p name="third">Third</p>
         <p name123="third">Third</p>
