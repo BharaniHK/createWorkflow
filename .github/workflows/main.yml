@@ -31,7 +31,7 @@ jobs:
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           for i in $changed_files; do
             echo files changed $i
-            grep -r name $i
+            grep -er name $i
           done 
         fi
         
