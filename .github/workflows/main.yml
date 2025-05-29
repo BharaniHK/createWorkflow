@@ -37,7 +37,6 @@ jobs:
              git log -p -n 1 -- $i
             else
              echo "$i is NOT .jsx or .html file"
-             grep -rF name $i
              git log -p -n 1 -- $i
             fi
           done 
