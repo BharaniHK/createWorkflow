@@ -4,7 +4,7 @@ function Third() {
   const headStyle = {
     textAlign: "center",
   }
-  return(
+  return( 
     <div> 
       <p id="third">Third</p>
        <p name="third">Third</p>
