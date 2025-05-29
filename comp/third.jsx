@@ -7,6 +7,9 @@ function Third() {
   return(
     <div>
       <p id="third">Third</p>
+        <p name="third">Third</p>
+        <p name123="third">Third</p>
+        <p dname="third">Third</p>
     </div>  
   )
 }
