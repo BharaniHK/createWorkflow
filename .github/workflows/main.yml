@@ -32,6 +32,11 @@ jobs:
           for i in $changed_files; do
             echo files changed $i
             grep -r name $i
+            if [[ "$i" = *".yml" ]] ; then
+             echo "$i is .txt file"
+            else
+             echo "$i is NOT .txt file"
+            fi
           done 
         fi
         
