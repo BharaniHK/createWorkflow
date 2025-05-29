@@ -6,11 +6,10 @@ on:
        - main
        - development
 
-       
   push:
-    branches:
-      - main
-      - development
+    branches: 
+       - main
+       - development
       
 jobs:
   check_changes_and_alert:
@@ -26,12 +25,31 @@ jobs:
       id: check-and-alert
       run: |
         # Define the list of filenames to watch for changes
-        watched_files=("config.json" "application.conf")
         if [[ ${{ github.event_name }} == 'pull_request' ]]; then
-          echo changed_files=$(git diff --name-only -r HEAD^1 HEAD)
+          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
+          for i in $changed_files; do
+            echo files changed $i
+            if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
+             echo "$i is .jsx file"
+             grep -w 'name' $i
+             git log -p -n 1 -- $i
+            else
+             echo "$i is NOT .jsx or .html file"
+             #git log -p -n 1 -- $i
+            fi
+          done 
         else
-          echo changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          grep -r name * >> results.txt
-          grep -r id *
+          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
+          for i in $changed_files; do
+            echo files changed $i
+            if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
+             echo "$i is .jsx file"
+             grep -w 'name' $i
+             git log -p -n 1 -- $i
+            else
+             echo "$i is NOT .jsx or .html file"
+             #git log -p -n 1 -- $i
+            fi
+          done 
         fi
         
