@@ -7,6 +7,7 @@ function App() {
   return(
     <div>
       <p name="first1">First</p>
+      <p id="firstid">First</p>
     </div>  
   )
 }
