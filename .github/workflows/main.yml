@@ -31,11 +31,11 @@ jobs:
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           for i in $changed_files; do
             echo files changed $i
-            if [[ "$i" = *".jsx" ]] ; then
-             echo "$i is .txt file"
+            if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
+             echo "$i is .jsx file"
              grep -r name $i
             else
-             echo "$i is NOT .txt file"
+             echo "$i is NOT .jsx or .html file"
             fi
           done 
         fi
