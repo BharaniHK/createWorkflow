@@ -28,11 +28,9 @@ jobs:
         if [[ ${{ github.event_name }} == 'pull_request' ]]; then
           echo Hello
         else
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          prev_file=${{ github.event.before }}
-          next_file=${{ github.event.after }}
-          result=$(git diff prev_file next_file)
-          echo result 
+          changed_files=$(git diff --name-status ${{ github.event.before }} ${{ github.event.after }})
+         
+          echo changed_files 
           
           
         fi
