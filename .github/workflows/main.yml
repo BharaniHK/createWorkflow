@@ -1,15 +1,12 @@
 name: Check For Changes to Monitored Files
 
 on:
-  pull_request:
-    branches: 
-       - main
-       - development
+  
 
   push:
     branches: 
        - main
-       - development
+    
       
 jobs:
   check_changes_and_alert:
