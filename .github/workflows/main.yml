@@ -47,7 +47,7 @@ jobs:
             # grep -w 'name' $i
             # git log -p -n 1 -- $i
             # git log -p -n 1 | grep -iw "name" -- $i
-            git log -p -n 1 -S -G "name" -- $i
+            git log -p -n 1 -G "name" -- $i
             else
              echo "$i is NOT .jsx or .html file"
              #git log -p -n 1 -- $i
