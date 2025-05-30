@@ -1,13 +1,10 @@
 name: Check For Changes to Monitored Files
 
 on:
-  
-
   push:
     branches: 
        - main
-    
-      
+       
 jobs:
   check_changes_and_alert:
     runs-on: ubuntu-latest
@@ -21,7 +18,7 @@ jobs:
     - name: Check and Alert if watched files changed
       id: check-and-alert
       run: |
-        # Define the list of filenames to watch for changes
+       echo ${{ github.event_name }}
         if [[ ${{ github.event_name }} == 'pull_request' ]]; then
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           for i in $changed_files; do
