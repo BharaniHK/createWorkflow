@@ -22,9 +22,9 @@ jobs:
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           for i in $changed_files; do
             echo files changed $i
-            if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
+            if [[ "$i" == *".jsx" || "$i" == *".html"  ]] ; then
              #only jsx or html file is checked
-             #to check name and id change in the file comparing to previous commit in that branch
+             #Check if any name and id attribute has changed in that file 
              git log -p -n 1 -G "name|id"  -- $i 
              #git log -p -n 1 -G "id" -- $i
             fi
