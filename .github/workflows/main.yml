@@ -45,7 +45,7 @@ jobs:
             if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
              echo "$i is .jsx file"
              grep -w 'name' $i
-             git log -p -n 1 -- $i
+            # git log -p -n 1 -- $i
              git log | grep -iw "name" -- $i
             else
              echo "$i is NOT .jsx or .html file"
