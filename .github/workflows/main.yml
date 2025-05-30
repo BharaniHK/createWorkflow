@@ -44,7 +44,7 @@ jobs:
             echo files changed $i
             if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
              echo "$i is .jsx file"
-             grep -w 'name' $i
+            # grep -w 'name' $i
             # git log -p -n 1 -- $i
              git log -p -n 1 | grep -iw "name" -- $i
             else
