@@ -25,7 +25,7 @@ jobs:
             if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
              #only jsx or html file is checked
              #to check name and id change in the file comparing to previous commit in that branch
-             git log -p -n 1 -G "name" "id" -- $i 
+             git log -p -n 1 -G "name|id"  -- $i 
              #git log -p -n 1 -G "id" -- $i
             fi
           done 
