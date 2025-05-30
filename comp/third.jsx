@@ -8,13 +8,12 @@ function Third() {
   return( 
     <div> 
       <p id="third">Third</p>
-        <span name="third">Third</span>
-       <p name123="third">Third</p>
-       <p abcname="third">Third</p>
-       <p name="third123">Third</p>
+      <span name="third">Third</span>
+      <p name123="third">Third</p>
+      <p abcname="third">Third</p>
       <p dname="third">Third123</p>
- <div name="third1">Division Third</div>
-       <div name="third">Division Third2</div>
-    </div>  
+      <div name="third_div">Division Third</div>
+       <div name="inner_div">Division Third2</div>
+      </div>  
   )
 }
