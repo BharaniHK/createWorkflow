@@ -19,33 +19,15 @@ jobs:
       id: check-and-alert
       run: |
        echo ${{ github.event_name }}
-        if [[ ${{ github.event_name }} == 'pull_request' ]]; then
+        if [[ ${{ github.event_name }} == 'push' ]]; then
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           for i in $changed_files; do
             echo files changed $i
             if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
-             echo "$i is .jsx file"
-             grep -w 'name' $i
-             git log -p -n 1 -- $i
-            else
-             echo "$i is NOT .jsx or .html file"
-             #git log -p -n 1 -- $i
-            fi
-          done 
-        else
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          for i in $changed_files; do
-            echo files changed $i
-            if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
-             echo "$i is .jsx file"
-            # grep -w 'name' $i
-            # git log -p -n 1 -- $i
-            # git log -p -n 1 | grep -iw "name" -- $i
-            git log -p -n 1 -G "name" -- $i
+             #only jsx or html file is checked
+             #to check name and id change in the file comparing to previous commit in that branch
+             git log -p -n 1 -G "name" -- $i 
              git log -p -n 1 -G "id" -- $i
-            else
-             echo "$i is NOT .jsx or .html file"
-             #git log -p -n 1 -- $i
             fi
           done 
         fi
