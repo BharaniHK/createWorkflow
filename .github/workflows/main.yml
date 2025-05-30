@@ -1,4 +1,4 @@
-ame: Check For Changes to Monitored Files
+name: Check For Changes to Monitored Files
 
 on:
   
