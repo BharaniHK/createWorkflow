@@ -2,7 +2,7 @@ import React from 'react';
 
 function App() {
   const headStyle = {
-    textAlign: "center",
+    textAlign: "center"
   }
   return(
     <div> 
