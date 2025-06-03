@@ -1,6 +1,6 @@
 import React from 'react'
 export const Four=()=>{
-  console.log("hello")
+  console.log("hello") 
   return(
     <div>
     <label id="four">Second</label>
