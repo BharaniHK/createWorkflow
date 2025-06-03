@@ -25,8 +25,8 @@ jobs:
             if [[ "$i" == *".jsx" || "$i" == *".html"  ]] ; then
              #only jsx or html file is checked
              #Check if any name and id attribute has changed in that file 
-             git log -p -n 1 -G "name|id"  -- $i 
-             #git log -p -n 1 -G "id" -- $i
+             git log -p -n 1 -G "name"  -- $i 
+             git log -p -n 1 -G "id" -- $i
             fi
           done 
         fi
