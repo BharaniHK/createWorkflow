@@ -28,7 +28,7 @@ jobs:
              e=$(git diff --color-words  --unified=0 --word-diff-regex="name" HEAD^^ HEAD ${i})
              echo $e
              if echo "$e" | grep -q "name"; then
-                echo "$e"
+                echo Hello world "$e"
              fi
              f=$(git log -p -1 --oneline --pickaxe-regex -S "name|id" ${i})
              #echo $f
