@@ -2,8 +2,8 @@ import React from 'react'
 
 export const Second=()=>{
   return(
-    <div>
-    <label id="second">Second</label> 
+    <div> 
+    <label id="second1">Second</label> 
      <p name="second1">Second</p>
       <p name ="second3">Second</p>
      <p name ="third">Second</p>
