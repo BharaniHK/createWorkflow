@@ -9,7 +9,7 @@ jobs:
   check_changes_and_alert:
     runs-on: ubuntu-latest
 
-    steps:
+    steps: 
     - name: Checkout code
       uses: actions/checkout@v3 
       with:
