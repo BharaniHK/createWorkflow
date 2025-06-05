@@ -29,6 +29,7 @@ jobs:
             # git diff -G "name" --pickaxe-all $i
             #git diff $i | grep "name" 
              git log -p -1 --pickaxe-regex -S "name"  -- $i 
+             git log -p -1 --pickaxe-regex -S "id"  -- $i 
              #git diff --word-diff-regex=\<regex here\>
             # git log -p -1 -G "id" -- $i
             #git log --pickaxe-regex -S 'name' -- $i
