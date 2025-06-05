@@ -26,7 +26,7 @@ jobs:
              #only jsx or html file is checked
              #Check if any name and id attribute has changed in that file 
              #grep -o name $i
-             git log -p -n 1 -S "name"  -- $i 
+             git log -p -n 1 -G "name"  -- $i 
              #git diff --word-diff-regex=\<regex here\>
              #git log -p -n 1 -G "id" -- $i
             fi
