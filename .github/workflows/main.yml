@@ -22,7 +22,7 @@ jobs:
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           for i in $changed_files; do
             echo files changed $i
-             git diff --color-words --word-diff-regex='[^name]*' ${{ github.event.before }} ${{ github.event.after }}
+             git diff --color-words --word-diff-regex='[name+]' ${{ github.event.before }} ${{ github.event.after }}
             if [[ "$i" == *".jsx" || "$i" == *".html"  ]] ; then
              echo hello
              #only jsx or html file is checked
