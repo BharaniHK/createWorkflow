@@ -22,7 +22,7 @@ jobs:
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           for i in $changed_files; do
             echo files changed $i
-            git log -p -1 --pickaxe-regex -S "name|id"  | git diff --unified=0  HEAD^^ HEAD --color-words $i
+            git log -p -1 --pickaxe-regex -S "name|id"  | git diff --unified=0 --word-diff-regex="name" HEAD^^ HEAD --color-words $i
             #git log -p -1 --pickaxe-regex -S "id"  | git diff HEAD^^ HEAD --color-words $i
              #git diff --color-words --word-diff-regex="name" ${{ github.event.before }} ${{ github.event.after }}
             if [[ "$i" == *".jsx" || "$i" == *".html"  ]] ; then
