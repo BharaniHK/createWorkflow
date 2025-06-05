@@ -9,7 +9,7 @@ function App() {
        <p name="First_name">First1</p>
       <p id="first_id1">First</p>
       <form>   
-        <input name1="username1" id="uid1" value="abcd"></input>
+        <input name="username1" id="uid1" value="abcd"></input>
         <button name="Submit">Submit</button>
       </form>
     </div>  
