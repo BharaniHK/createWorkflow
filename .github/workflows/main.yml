@@ -22,6 +22,7 @@ jobs:
           changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
           for i in $changed_files; do
             echo files changed $i
+             git diff --color-words --no-index ${{ github.event.before }} ${{ github.event.after }}
             if [[ "$i" == *".jsx" || "$i" == *".html"  ]] ; then
              #only jsx or html file is checked
              #Check if any name and id attribute has changed in that file 
@@ -34,7 +35,7 @@ jobs:
             # git log -p -1 -G "id" -- $i
             #git log --pickaxe-regex -S 'name' -- $i
 
-        git diff --color-words --no-index $i
+       
 
             #git log --format="%H" -- '*/filename.txt' |\
             #while read sha; do
