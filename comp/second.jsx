@@ -5,6 +5,8 @@ export const Second=()=>{
     <div>
     <label id="second">Second</label> 
      <p name ="second">Second</p>
+         <p name ="second">Second</p>
+         <p name="second">Second</p>
     </div>
   )
 }
