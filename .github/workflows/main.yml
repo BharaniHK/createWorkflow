@@ -28,7 +28,7 @@ jobs:
              #grep -o name $i
              git log -p -n 1 -G "name"  -- $i 
              #git diff --word-diff-regex=\<regex here\>
-             #git log -p -n 1 -G "id" -- $i
+             git log -p -n 1 -G "id" -- $i
             fi
           done 
         fi
