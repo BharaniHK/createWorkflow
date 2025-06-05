@@ -4,9 +4,9 @@ export const Four=()=>{
   return(
     <div>
     <label id="four">Second</label>
-    <label name="four1">Second</label>
-    <p name="four2">Second</p> 
-    <label id="five">Second</label>
+    <label name="Four1">Second</label>
+     <p name="four2">Second</p> 
+    <label id="four3">Second</label>
     </div>
   )
 }
