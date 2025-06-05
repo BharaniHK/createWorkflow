@@ -27,8 +27,11 @@ jobs:
             #git log -p -1 --pickaxe-regex -S "name|id" $i
              e=$(git diff --color-words  --unified=0 --word-diff-regex="name" HEAD^^ HEAD ${i})
              echo $e
+             if echo "$e" | grep -q "name"; then
+                echo "$e"
+             fi
              f=$(git log -p -1 --oneline --pickaxe-regex -S "name|id" ${i})
-             echo $f
+             #echo $f
              
              #git log -p -1 --pickaxe-regex -S "id"  | git diff HEAD^^ HEAD --color-words $i
              
