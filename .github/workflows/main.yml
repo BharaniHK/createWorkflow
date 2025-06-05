@@ -24,7 +24,7 @@ jobs:
             echo files changed $i
             
             e= $(git log -p -1 --pickaxe-regex -S "name|id" $i)
-             echo $e
+             #echo $e
              #git log -p -1 --pickaxe-regex -S "id"  | git diff HEAD^^ HEAD --color-words $i
              
              #git diff --color-words --word-diff-regex="name" ${{ github.event.before }} ${{ github.event.after }}
