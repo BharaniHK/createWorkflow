@@ -23,7 +23,7 @@ jobs:
           for i in $changed_files; do
             echo files changed $i
             
-            e= $(git log -p -1 --pickaxe-regex -S "name|id" --$i)
+            e= $(git log -p -1 --pickaxe-regex -S "name|id" $i)
              echo $e
              #git log -p -1 --pickaxe-regex -S "id"  | git diff HEAD^^ HEAD --color-words $i
              
