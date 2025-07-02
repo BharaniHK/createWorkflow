@@ -23,7 +23,7 @@ jobs:
           for i in $changed_files; do
             echo files changed $i 
              e=$(git diff --color-words="name"  --unified=0  HEAD^^ HEAD ${i})
-             echo '$e' 'diff result' 
+             echo $e 'diff result' 
              if grep -q "name"; then
                 echo 'grep result' "$e"
              fi
