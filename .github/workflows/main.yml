@@ -32,7 +32,7 @@ jobs:
             #Check if any name and id attribute has changed in that file 
              git log --pretty=oneline -1 --pickaxe-regex -S "name"  -- $i 
              git diff --word-diff-regex="name*" --unified=0  HEAD^^ HEAD ${i}
-              git diff --color-words="name *"  --unified=0  HEAD^^ HEAD ${i}
+              git diff --color-words="name =*"  --unified=0  HEAD^^ HEAD ${i}
              
             fi
           done 
