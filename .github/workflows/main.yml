@@ -24,31 +24,18 @@ jobs:
             echo files changed $i 
              e=$(git diff --color-words="name"  --unified=0  HEAD^^ HEAD ${i})
              echo $e 'diff result' 
-             if grep -q "name"; then
-                echo 'grep result' "$e"
-             fi
+             
              f=$(git log -p -1 --oneline --pickaxe-regex -S "name|id" ${i})
              echo '$f' 'log result'
              
             if [[ "$i" == *".jsx" || "$i" == *".html"  ]] ; then
-             echo hello
+             echo the jsx or html file is changed
              #only jsx or html file is checked
              #Check if any name and id attribute has changed in that file 
-             #grep -o name $i
-            # git diff -G "name" --pickaxe-all $i
-            #git diff $i | grep "name" 
-             #git log -p -1 --pickaxe-regex -S "name"  -- $i 
-             #git log -p -1 --pickaxe-regex -S "id"  -- $i 
-             #git diff --word-diff-regex=\<regex here\>
-            # git log -p -1 -G "id" -- $i
-            #git log --pickaxe-regex -S 'name' -- $i
-
+              git log -p -1 --pickaxe-regex -S "name"  -- $i 
+             
        
 
-            #git log --format="%H" -- '*/filename.txt' |\
-            #while read sha; do
-             # git show --pickaxe-regex -S 'name|id' $sha
-            #done
             fi
           done 
         fi
