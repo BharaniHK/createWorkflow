@@ -7,7 +7,7 @@ export const Four=()=>{
     <label name="Four1">Second</label>
     <span>abc</span>
     <p name ="four">Second</p> 
-    <label id="four3">Second</label>
+    <label id= "four3">Second</label>
     </div>
   )
 }
