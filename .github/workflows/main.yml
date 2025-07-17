@@ -18,7 +18,7 @@ jobs:
     - name: Check and Alert if watched files changed
       id: check-and-alert
       run: |
-         changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after  }})
+         changed_files=$(git diff --name-only HEAD^ HEAD)
 
          for file in $changed_files; do
             if [[ $file == *.html || $file == *.jsx ]]; then
