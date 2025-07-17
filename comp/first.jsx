@@ -6,12 +6,12 @@ function App() {
   }
   return(
     <div> 12345
-      <p name="dFirstname">First1</p> 
+      <p name="Firstname">First1</p> 
        <p id="first_id1">First</p>k
       <form>  
-        <input name="username12" id="uid1" value="abcd"></input>
+        <input name ="username12" id="uid1" value="abcd"></input>
         <input  id="uid2" value="abcd"></input>
-        <span name="Submit">Submit</span>
+        <p name="Submit">Submit</p>
       </form>
     </div>  
   )
