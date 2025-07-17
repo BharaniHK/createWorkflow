@@ -30,8 +30,7 @@ jobs:
 
   
 
-                # Display the changes
-                if [ -n "$old_value" ] && [ -n "$new_value" ]; then
+               if [ "$old_value" != "$new_value" ]; then
                   echo "File: $file"
                   echo "Old name value: $old_value"
                   echo "New name value: $new_value"
