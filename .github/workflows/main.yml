@@ -27,6 +27,7 @@ jobs:
               new_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
 
               # Check if the values are different and display the new value
+               echo "Old name value111: $old_value"
               if [ "$old_value" != "$new_value" ]; then
                 echo "File: $file"
                 echo "Updated name value: $new_value"
