@@ -30,7 +30,7 @@ jobs:
 
                 # Display the new class value
                 echo "Old class value: $old_value"
-                if [ $old_value!==$new_value ]; then
+                if [ "$old_value" != "$new_value" ]; then
                   echo "File: $file"
                   echo "New class value: $new_value"
                 fi
