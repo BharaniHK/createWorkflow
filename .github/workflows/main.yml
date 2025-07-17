@@ -30,6 +30,7 @@ jobs:
               if [ "$old_value" != "$new_value" ]; then
                 echo "File: $file"
                 echo "Updated name value: $new_value"
+                echo "Old name value: $old_value"
               fi
             fi
           done
