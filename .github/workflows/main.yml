@@ -30,9 +30,9 @@ jobs:
                 new_value=$(git diff ${{ github.event.before }} ${{ github.event.after }} -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
 
                 if [ "$old_value" != "$new_value" ]; then
-                  echo "File: $file"
-                  echo "Old name value: $old_value"
-                  echo "New name value: $new_value"
+              #    echo "File: $file"
+               #   echo "Old name value: $old_value"
+                #  echo "New name value: $new_value"
                 fi
                
                done
