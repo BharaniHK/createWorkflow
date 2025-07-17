@@ -12,11 +12,13 @@ jobs:
     steps: 
     - name: Checkout code
       uses: actions/checkout@v3 
-     
+      with:
+       fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
+
     - name: Check and Alert if watched files changed
       id: check-and-alert
       run: |
-         changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+         changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
 
          for file in $changed_files; do
             if [[ $file == *.html || $file == *.jsx ]]; then
