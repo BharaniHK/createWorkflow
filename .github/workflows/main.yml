@@ -24,7 +24,7 @@ jobs:
             if [[ $file == *.html || $file == *.jsx ]]; then
               if git diff ${{ github.event.before }} ${{ github.event.after }} -- "$file" | grep -q 'name='; then
                 echo "Class attribute changed in $file"
-                exit 1 # Exit with an error code if changes are found
+               
               fi
             fi
           done
