@@ -1,39 +1,42 @@
-name: Check For Changes to Monitored Files
+name: Check Class Attribute Changes
 
 on:
   push:
-    branches: 
-       - main
-       
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  check_changes_and_alert:
+  check-class-changes:
     runs-on: ubuntu-latest
 
-    steps: 
-    - name: Checkout code
-      uses: actions/checkout@v3 
-      with:
-        fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Check and Alert if watched files changed
-      id: check-and-alert
-      run: |
-        if [[ ${{ github.event_name }} == 'push' ]]; then
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          for i in $changed_files; do
-            echo files changed $i 
-            # git diff --color-words="name*"  --unified=0  HEAD^^ HEAD ${i}
-             #git diff --word-diff-regex="name*" --unified=0  HEAD^^ HEAD ${i}
-             #echo $e 'diff result' 
-             
-            if [[ "$i" == *".jsx" || "$i" == *".html"  ]] ; then
-             echo the jsx or html file is changed
-            #only jsx or html file is checked
-            #Check if any name and id attribute has changed in that file 
-             git log --pretty=oneline -1 --pickaxe-regex -S "name"  -- $i 
-             git diff --word-diff-regex="name *" --unified=0  HEAD^^ HEAD ${i}
-            #  git diff --color-words="name =*"  --unified=0  HEAD^^ HEAD ${i}
-             
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # Specify the Node.js version you need
+
+      - name: Install dependencies
+        run: npm install # Adjust this if you have a different package manager
+
+      - name: Check for class attribute changes
+        run: |
+          # Get the list of changed files
+          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+
+          # Check for changes in HTML or JSX files
+          for file in $changed_files; do
+            if [[ $file == *.html || $file == *.jsx ]]; then
+              if git diff ${{ github.event.before }} ${{ github.sha }} -- "$file" | grep -q 'class='; then
+                echo "Class attribute changed in $file"
+                exit 1 # Exit with an error code if changes are found
+              fi
             fi
-          done 
-        fi
+          done
+
+          echo "No class attribute changes detected."
