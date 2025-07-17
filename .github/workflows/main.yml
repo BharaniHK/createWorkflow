@@ -29,7 +29,8 @@ jobs:
                  new_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p')
 
                 # Display the new class value
-                if [ $old_value===$new_value ]; then
+                echo "New class value: $old_value"
+                if [ $old_value!==$new_value ]; then
                   echo "File: $file"
                   echo "New class value: $new_value"
                 fi
