@@ -22,13 +22,14 @@ jobs:
 
          for file in $changed_files; do
             if [[ $file == *.html || $file == *.jsx ]]; then
-              if git diff ${{ github.event.before }} ${{ github.event.after }} -- "$file" | grep -q 'name='; then
+                 git diff ${{ github.event.before }} ${{ github.event.after }} -- "$file" | grep -E 'class=' | while read -r line; do
+             
                 echo "Class attribute changed in $file"
                 old_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p')
                 new_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p')
                  echo "Old class value: $old_value"
                 echo "New class value: $new_value"
-               
-              fi
+               done
+              
             fi
           done
