@@ -22,18 +22,14 @@ jobs:
 
          for file in $changed_files; do
             if [[ $file == *.html || $file == *.jsx ]]; then
-               
-               
-               git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | while read -r line; do
-                # Extract the new name value
-                new_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p')
+              # Get the old and new name values
+              old_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
+              new_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
 
-                # Display the new name value if it exists
-                if [ -n "$new_value" ]; then
-                  echo "File: $file"
-                  echo "Updated name value: $new_value"
-                fi
-              done
-              
+              # Check if the values are different and display the new value
+              if [ "$old_value" != "$new_value" ]; then
+                echo "File: $file"
+                echo "Updated name value: $new_value"
+              fi
             fi
           done
