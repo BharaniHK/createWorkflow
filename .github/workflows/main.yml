@@ -22,20 +22,18 @@ jobs:
 
          for file in $changed_files; do
             if [[ $file == *.html || $file == *.jsx ]]; then
-                 git diff ${{ github.event.before }} ${{ github.sha  }} -- "$file" | grep -E 'name=' | while read -r line; do
-              new_value1=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p')
-                echo "updated in the line $new_value1"
-                echo "Name attribute changed in $file"
-                old_value=$(git diff ${{ github.event.before }} ${{ github.event.after }} -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
-                new_value=$(git diff ${{ github.event.before }} ${{ github.event.after }} -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
-
-               # if [ "$old_value" != "$new_value" ]; then
-              #    echo "File: $file"
-               #   echo "Old name value: $old_value"
-                #  echo "New name value: $new_value"
-               # fi
                
-               done
+               
+               git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | while read -r line; do
+                # Extract the new name value
+                new_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p')
+
+                # Display the new name value if it exists
+                if [ -n "$new_value" ]; then
+                  echo "File: $file"
+                  echo "Updated name value: $new_value"
+                fi
+              done
               
             fi
           done
