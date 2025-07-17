@@ -18,15 +18,15 @@ jobs:
     - name: Check and Alert if watched files changed
       id: check-and-alert
       run: |
-         changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha  }})
+         changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after  }})
 
          for file in $changed_files; do
             if [[ $file == *.html || $file == *.jsx ]]; then
                  git diff ${{ github.event.before }} ${{ github.sha  }} -- "$file" | grep -E 'name=' | while read -r line; do
              
                 echo "Name attribute changed in $file"
-                old_value=$(git diff ${{ github.event.before }} ${{ github.sha }} -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
-                new_value=$(git diff ${{ github.event.before }} ${{ github.sha }} -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
+                old_value=$(git diff ${{ github.event.before }} ${{ github.event.after }} -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
+                new_value=$(git diff ${{ github.event.before }} ${{ github.event.after }} -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
 
                 if [ "$old_value" != "$new_value" ]; then
                   echo "File: $file"
