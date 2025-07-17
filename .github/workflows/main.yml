@@ -25,14 +25,14 @@ jobs:
                  git diff ${{ github.event.before }} ${{ github.event.after }} -- "$file" | grep -E 'name=' | while read -r line; do
              
                 echo "Class attribute changed in $file"
-                old_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p')
-                 new_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p')
+               old_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
+                new_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
 
-                # Display the new class value
-                echo "Old class value: $old_value"
-                if [ "$old_value" != "$new_value" ]; then
+                # Display the changes
+                if [ -n "$old_value" ] && [ -n "$new_value" ]; then
                   echo "File: $file"
-                  echo "New class value: $new_value"
+                  echo "Old name value: $old_value"
+                  echo "New name value: $new_value"
                 fi
                
                done
