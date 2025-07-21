@@ -39,7 +39,7 @@ jobs:
 
                 # Compare the lines
                 if [ "$PREVIOUS_LINES" != "$CURRENT_LINES" ]; then
-                  a=$PREVIOUS_LINES | grep 'name='
+                  a=$(${{PREVIOUS_LINES}} | sed 's/.*name="\([^"]*\)".*/\1/')
                   echo "$PREVIOUS_LINES" valu is "$a"
                 fi
 
