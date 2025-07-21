@@ -29,11 +29,12 @@ jobs:
                 # Extract the old and new name values
                 old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
                 new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
-                echo "$old_value"
+               # echo "$old_value"
                 # Check if the values are different and display the new value
                 if [ "$old_value" != "$new_value" ]; then
                   echo "File: $file"
                   echo "Updated name value: $new_value"
+                   echo "Old name value: $old_value"
                 fi
               done
             fi
