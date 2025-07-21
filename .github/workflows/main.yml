@@ -32,7 +32,12 @@ jobs:
                   echo "Updated name value: $new_value"
                   echo "Old name value: $old_value"
                 fi
-                
-                
+
+                IFS=$'\n' read -ra ADDR <<< "$old_value"
+
+                # Loop through the array and print each element
+                for i in "${ADDR[@]}"; do
+                  echo "Fruit: $i"+i
+                done                
             fi
           done
