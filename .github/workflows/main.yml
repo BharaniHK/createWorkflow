@@ -23,15 +23,20 @@ jobs:
          for file in $changed_files; do
             if [[ $file == *.html || $file == *.jsx ]]; then
               # Get the old and new name values
-              old_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
-              new_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
+            #  old_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
+             # new_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
 
-              # Check if the values are different and display the new value
-               echo "Old name value111: $old_value"
-              if [ "$old_value" != "$new_value" ]; then
-                echo "File: $file"
-                echo "Updated name value: $new_value"
-                echo "Old name value: $old_value"
+             old_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
+            new_value=$(git show HEAD:"$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
+
+         
+              # Compare the values
+              if [ "$VALUE1" != "$VALUE2" ]; then
+                echo "Attribute value changed from '$VALUE1' to '$VALUE2'"
+                echo "change_detected=true" >> $GITHUB_ENV
+              else
+                echo "No change detected in attribute value."
+                echo "change_detected=false" >> $GITHUB_ENV
               fi
             fi
           done
