@@ -18,7 +18,8 @@ jobs:
     - name: Check and Alert if watched files changed
       id: check-and-alert
       run: |
-         changed_files=$(git diff --name-only HEAD^ HEAD)
+         changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+         #$(git diff --name-only HEAD^ HEAD)
 
          for file in $changed_files; do
             if [[ $file == *.html || $file == *.jsx ]]; then
@@ -26,9 +27,9 @@ jobs:
             #  old_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
              # new_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
 
-             old_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
-            new_value=$(git show HEAD:"$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
-            
+              old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
+              new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
+    
               echo "values are '$old_value' and '$new_value'"
               # Compare the values
               if [ "$old_value" != "$new_value" ]; then
