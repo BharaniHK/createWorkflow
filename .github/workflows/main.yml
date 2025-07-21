@@ -33,6 +33,6 @@ jobs:
                   echo "File: $file"
                   echo "Updated name value: $new_value1"
                    echo "Old name value: $old_value1"
-                fi,
+                fi
             fi
           done
