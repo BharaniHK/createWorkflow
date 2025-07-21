@@ -31,7 +31,7 @@ jobs:
               new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
 
             #declare -p "$old_value"
-             if $ [[ $a =~ [A-Za-z]+ ]] ; then
+             if  [[ "$old_value" =~ [A-Za-z]+ ]] ; then
                echo "YES ITS STRING"
              fi
 
