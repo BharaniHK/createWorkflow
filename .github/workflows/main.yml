@@ -27,17 +27,21 @@ jobs:
                 old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
                 new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
                
-                if [ "$old_value" != "$new_value" ]; then
-                  echo "File: $file"
-                  echo "Updated name value: $new_value"
-                  echo "Old name value: $old_value"
+                #if [ "$old_value" != "$new_value" ]; then
+                 # echo "File: $file"
+                  #echo "Updated name value: $new_value"
+                  #echo "Old name value: $old_value"
+                #fi
+
+
+                PREVIOUS_LINES=$(git show ${{ github.event.before }}:$file | grep 'name=')
+                CURRENT_LINES=$(git show ${{ github.sha }}:$file | grep 'name=')
+
+                # Compare the lines
+                if [ "$PREVIOUS_LINES" != "$CURRENT_LINES" ]; then
+                  echo "$PREVIOUS_LINES"
                 fi
 
-                IFS=$'\n' read -ra ADDR <<< "$old_value"
 
-                # Loop through the array and print each element
-                for i in "${ADDR[@]}"; do
-                  echo "Fruit: $i"+i
-                done                
             fi
           done
