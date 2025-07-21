@@ -34,10 +34,10 @@ jobs:
 
               # Loop through the array and print each element
               for i in "${value1[@]}"; do
-                echo "values are : $i"
+             #   echo "values are : $i"
               done
 
-             # echo "values are '$old_value' and '$new_value'"
+              echo "values are '$old_value' and '$new_value'"
               # Compare the values
               if [ "$old_value" != "$new_value" ]; then
                # echo "Attribute value changed from '$old_value' to '$new_value'"
