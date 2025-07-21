@@ -23,28 +23,17 @@ jobs:
 
          for file in $changed_files; do
             if [[ $file == *.html || $file == *.jsx ]]; then
-              # Get the old and new name values
-            #  old_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
-             # new_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
+              # Get the differences for the name attribute
+              git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | while read -r line; do
+                # Extract the old and new name values
+                old_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
+                new_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
 
-              old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
-              new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
-
-             IFS=$'\n' read -ra value1 <<< "$old_value"
-
-              # Loop through the array and print each element
-              #for i in "${value1[@]}"; do
-             #   echo "values are : $i"
-              #done
-
-              echo "values are '$old_value' and '$new_value'"
-              # Compare the values
-              if [ "$old_value" != "$new_value" ]; then
-               # echo "Attribute value changed from '$old_value' to '$new_value'"
-                echo "change_detected=true" >> $GITHUB_ENV
-              else
-                echo "No change detected in attribute value."
-                echo "change_detected=false" >> $GITHUB_ENV
-              fi
+                # Check if the values are different and display the new value
+                if [ "$old_value" != "$new_value" ]; then
+                  echo "File: $file"
+                  echo "Updated name value: $new_value"
+                fi
+              done
             fi
           done
