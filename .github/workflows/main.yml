@@ -29,12 +29,13 @@ jobs:
 
               old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
               new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
-    
-              echo "values are '$old_value' and '$new_value'"
+
+            declare -p old_value
+             # echo "values are '$old_value' and '$new_value'"
               # Compare the values
               if [ "$old_value" != "$new_value" ]; then
                 echo "Attribute value changed from '$old_value' to '$new_value'"
-                echo "change_detected=true" >> $GITHUB_ENV
+               # echo "change_detected=true" >> $GITHUB_ENV
               else
                 echo "No change detected in attribute value."
                 echo "change_detected=false" >> $GITHUB_ENV
