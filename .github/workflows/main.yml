@@ -35,7 +35,6 @@ jobs:
                 git diff HEAD^ HEAD -- "$file" | while read -r line; do
                 # Check if the line contains a name attribute
                 if echo "$line" |sed 's/.*name="\([^"]*\)".*/\1/'; then
-                  Print the changed line
                   echo "Changed line: $line"
                 fi
               done
