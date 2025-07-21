@@ -31,7 +31,7 @@ jobs:
 
          
               # Compare the values
-              if [ "$VALUE1" != "$VALUE2" ]; then
+              if [ "$old_value" != "$new_value" ]; then
                 echo "Attribute value changed from '$VALUE1' to '$VALUE2'"
                 echo "change_detected=true" >> $GITHUB_ENV
               else
