@@ -20,11 +20,11 @@ jobs:
       run: |
        #  changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
          #$(git diff --name-only HEAD^ HEAD)
-         changed_files=$(git diff --name-only HEAD^ HEAD)
+         changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
          
          for file in $changed_files; do
             if [[ $file == *.html || $file == *.jsx ]]; then
-               git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | while read -r line; do
+               git diff ${{ github.event.before }} ${{ github.sha }} -- "$file" | grep -E 'name=' | while read -r line; do
                 # Extract the new name value
                 new_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p')
                 echo "$new_value" new value
