@@ -27,8 +27,8 @@ jobs:
               # Get the differences for the name attribute
               git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | while read -r line; do
                 # Extract the old and new name values
-                old_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p' | HEAD^)
-                new_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p' | HEAD)
+                old_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p' | "HEAD^")
+                new_value=$(echo "$line" | sed -n 's/.*name="\([^"]*\)".*/\1/p' | "HEAD")
 
                 # Check if the values are different and display the new value
                 if [ "$old_value" != "$new_value" ]; then
