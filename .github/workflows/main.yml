@@ -33,9 +33,9 @@ jobs:
              IFS=$'\n' read -ra value1 <<< "$old_value"
 
               # Loop through the array and print each element
-              for i in "${value1[@]}"; do
+              #for i in "${value1[@]}"; do
              #   echo "values are : $i"
-              done
+              #done
 
               echo "values are '$old_value' and '$new_value'"
               # Compare the values
