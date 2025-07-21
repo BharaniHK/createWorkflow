@@ -39,7 +39,8 @@ jobs:
 
                 # Compare the lines
                 if [ "$PREVIOUS_LINES" != "$CURRENT_LINES" ]; then
-                  echo "$PREVIOUS_LINES"
+                  a=$PREVIOUS_LINES | grep 'name='
+                  echo "$PREVIOUS_LINES" valu is "$a"
                 fi
 
 
