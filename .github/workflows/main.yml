@@ -24,15 +24,21 @@ jobs:
             if [[ $file == *.html || $file == *.jsx ]]; then
               # Get the differences for the name attribute
                 # Extract the old and new name values
-                old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/'),
-                echo oldvalue is: "$old_value"
-                new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
-               new_value1="${new_value},"
+               # old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
+               # new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed 's/.*name="\([^"]*\)".*/\1/')
                
-                if [ "$old_value1" != "$new_value1" ]; then
-                  echo "File: $file"
-                  echo "Updated name value: $new_value1"
-                   echo "Old name value: $old_value1"
+               # if [ "$old_value1" != "$new_value1" ]; then
+                #  echo "File: $file"
+                 # echo "Updated name value: $new_value1"
+                  # echo "Old name value: $old_value1"
+                #fi
+                git diff HEAD^ HEAD -- "$file" | while read -r line; do
+                # Check if the line contains a name attribute
+                if echo "$line" | grep -q 'name='; then
+                  # Print the changed line
+                  echo "Changed line: $line"
                 fi
+              done
+                
             fi
           done
