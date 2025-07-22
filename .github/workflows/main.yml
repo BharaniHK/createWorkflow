@@ -34,6 +34,12 @@ jobs:
                 echo "Old name values in $file:"
                 while IFS= read -r old1; do
                   echo " - $old1"
+                  while IFS= read -r new1; do
+                    echo " - $new_value"
+                    if [ "$old1" != "$new1" ]; then
+                      echo new value updated  "$new_value"
+                    fi
+                  done <<< "$new_values"
                 done <<< "$old_value"
 
                
