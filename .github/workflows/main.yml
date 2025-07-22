@@ -67,7 +67,7 @@ jobs:
                       echo " Old Value: '$old1'"
                      old_values_array+=("$old1")
                      
-                    fi
+                    
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
@@ -78,6 +78,7 @@ jobs:
                       echo "Pattern '$PATTERN' found in '$file':"
                       echo "$MATCHING_LINES"
                       line1+=("MATCHING_LINES")
+                    fi
                 done <<< "$new_value"
 
               # Print the array of changed name values
