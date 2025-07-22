@@ -35,10 +35,11 @@ jobs:
                 # Compare the lines
                 if [ "$PREVIOUS_LINES" != "$CURRENT_LINES" ]; then
                   echo "Changes in '$ATTRIBUTE' attribute values in '$file':"
-                  echo "Previous value(s):"
-                  echo "$PREVIOUS_LINES"
-                  echo "Current value(s):"
-                  echo "$CURRENT_LINES"
+                  #echo "Previous value(s):"
+                  #echo "$PREVIOUS_LINES"
+                  
+                  #echo "Current value(s):"
+                  #echo "$CURRENT_LINES"
 
                   # Store changed values in the array
                   CHANGED_VALUES+=("$CURRENT_LINES")
@@ -46,11 +47,11 @@ jobs:
                   # Display the lines where the attribute is found
                #   echo "Lines with 'name' attribute in '$file':"
                 fi
-             echo "Changed values array: ${CHANGED_VALUES[@]}"
+             #echo "Changed values array: ${CHANGED_VALUES[@]}"
          
                 
                 while IFS= read -r PREVIOUS_LINES; do
-                    a=PREVIOUS_LINES | sed -n 's/.*name="\([^"]*\)".*/\1/p'
+                    a=$PREVIOUS_LINES | sed -n 's/.*name="\([^"]*\)".*/\1/p'
                     echo " Old Value: '$a'"
                     lines_array+=("$a")
                 done <<< "$PREVIOUS_LINES"
@@ -65,11 +66,18 @@ jobs:
                 while IFS= read -r old1; do
                       echo " Old Value: '$old1'"
                      old_values_array+=("$old1")
+                     
+                    fi
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
                    echo "Changed name value:  New Value: '$new1'"
                    changed_name_values+=("$new1")
+                   MATCHING_LINES=$(grep "$PATTERN" "$file")
+                     if [ -n "$MATCHING_LINES" ]; then
+                      echo "Pattern '$PATTERN' found in '$file':"
+                      echo "$MATCHING_LINES"
+                      line1+=("MATCHING_LINES")
                 done <<< "$new_value"
 
               # Print the array of changed name values
