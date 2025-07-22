@@ -45,9 +45,9 @@ jobs:
                   
                   # Display the lines where the attribute is found
                #   echo "Lines with 'name' attribute in '$file':"
-                  echo "$CURRENT_LINES"
                 fi
-          
+             echo "Changed values array: ${CHANGED_VALUES[@]}"
+         
                 
                 while IFS= read -r PREVIOUS_LINES; do
                     a=PREVIOUS_LINES | sed -n 's/.*name="\([^"]*\)".*/\1/p'
