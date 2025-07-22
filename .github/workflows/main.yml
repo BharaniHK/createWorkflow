@@ -50,11 +50,11 @@ jobs:
              #echo "Changed values array: ${CHANGED_VALUES[@]}"
          
                 
-                while IFS= read -r PREVIOUS_LINES; do
-                    a=$PREVIOUS_LINES | sed -n 's/.*name="\([^"]*\)".*/\1/p'
-                    echo " Old Value: '$a'"
-                    lines_array+=("$a")
-                done <<< "$PREVIOUS_LINES"
+                #while IFS= read -r PREVIOUS_LINES; do
+                 #   a=$PREVIOUS_LINES | sed -n 's/.*name="\([^"]*\)".*/\1/p'
+                  #  echo " Old Value: '$a'"
+                   # lines_array+=("$a")
+                #done <<< "$PREVIOUS_LINES"
                 
                 old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
                 new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
@@ -65,15 +65,13 @@ jobs:
                 echo "Old name values in $file:"
                 while IFS= read -r old1; do
                       echo " Old Value: '$old1'"
-                     old_values_array+=("$old1")
-                     
-                    
+                     old_values_array+=("$old1")   
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
                    echo "Changed name value:  New Value: '$new1'"
                    changed_name_values+=("$new1")
-                   MATCHING_LINES=$(grep "$PATTERN" "$file")
+                   MATCHING_LINES=$(grep "name='$new1'" "$file")
                      if [ -n "$MATCHING_LINES" ]; then
                       echo "Pattern '$PATTERN' found in '$file':"
                       echo "$MATCHING_LINES"
