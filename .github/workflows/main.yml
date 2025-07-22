@@ -25,8 +25,8 @@ jobs:
               # Get the differences for the name attribute
                 # Extract the old and new name values
                 #git show ${{ github.event.before }}:$file
-                old_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | head -n 1)
-                new_value=$(git diff HEAD^ HEAD -- "$file" | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' | tail -n 1)
+                old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
+                new_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
                
                 if [ "$old_value" != "$new_value" ]; then
                   echo "Updated name value: $new_value"
