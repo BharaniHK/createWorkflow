@@ -28,33 +28,6 @@ jobs:
             if [[ $file == *.html || $file == *.jsx ]]; then
               # Get the differences for the name attribute
                 # Extract the old and new name values
-
-                PREVIOUS_LINES=$(git show ${{ github.event.before }}:$file | grep "name=")
-                CURRENT_LINES=$(git show ${{ github.sha }}:$file | grep "name=")
-
-                # Compare the lines
-                if [ "$PREVIOUS_LINES" != "$CURRENT_LINES" ]; then
-                  echo "Changes in '$ATTRIBUTE' attribute values in '$file':"
-                  #echo "Previous value(s):"
-                  #echo "$PREVIOUS_LINES"
-                  
-                  #echo "Current value(s):"
-                  #echo "$CURRENT_LINES"
-
-                  # Store changed values in the array
-                  CHANGED_VALUES+=("$CURRENT_LINES")
-                  
-                  # Display the lines where the attribute is found
-               #   echo "Lines with 'name' attribute in '$file':"
-                fi
-             #echo "Changed values array: ${CHANGED_VALUES[@]}"
-         
-                
-                #while IFS= read -r PREVIOUS_LINES; do
-                 #   a=$PREVIOUS_LINES | sed -n 's/.*name="\([^"]*\)".*/\1/p'
-                  #  echo " Old Value: '$a'"
-                   # lines_array+=("$a")
-                #done <<< "$PREVIOUS_LINES"
                 
                 old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
                 new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
@@ -64,19 +37,18 @@ jobs:
               # Print old values
                 echo "Old name values in $file:"
                 while IFS= read -r old1; do
-                      echo " Old Value: '$old1'"
-                     old_values_array+=("$old1")   
+                 echo " Old Value: '$old1'"
+                 old_values_array+=("$old1")   
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
-                   echo "Changed name value:  New Value: '$new1'"
-                   changed_name_values+=("$new1")
-                   MATCHING_LINES=$(grep "name='$new1'" "$file")
-                     if [ -n "$MATCHING_LINES" ]; then
-                      echo "Pattern '$PATTERN' found in '$file':"
-                      echo "$MATCHING_LINES"
-                      line1+=("MATCHING_LINES")
-                    fi
+                 echo " New Value: '$new1'"
+                 PATTERN="name='\$name1'" 
+                 MATCHING_LINES=$(grep $PATTERN "$file")
+                 echo "$MATCHING_LINES"
+                 line1+=("MATCHING_LINES")
+                 echo "$MATCHING_LINES"
+                 changed_name_values+=("$new1")   
                 done <<< "$new_value"
 
               # Print the array of changed name values
@@ -85,10 +57,10 @@ jobs:
                length2=${#old_values_array[@]}
                echo "Changed name values and lengeth stored in array: '$length1' and '$length2'"
               #for value in "${changed_name_values[@]}"; do
-                echo "$value" --- new values array
+              #  echo "$value" --- new values array
               #done
               # for value in "${changed_name_values[@]}"; do
-                 echo "$value" --- old values array
+               #  echo "$value" --- old values array
               #done
                # if [ "$old_value" != "$new_value" ]; then
                 #  echo "Updated name value: $new_value"
