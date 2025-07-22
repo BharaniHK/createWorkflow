@@ -50,12 +50,12 @@ jobs:
              
               length1=${#changed_name_values[@]}
                length2=${#old_values_array[@]}
-               #echo "Changed name values and lengeth stored in array: '$length1' and '$length2'"
+               echo "Changed name values and lengeth stored in array: '$length1' and '$length2'"
               #for value in "${changed_name_values[@]}"; do
-               # echo "$value" --- new values array
+                echo "$value" --- new values array
               #done
               # for value in "${changed_name_values[@]}"; do
-               # echo "$value" --- old values array
+                 echo "$value" --- old values array
               #done
                # if [ "$old_value" != "$new_value" ]; then
                 #  echo "Updated name value: $new_value"
