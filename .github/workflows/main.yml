@@ -26,7 +26,7 @@ jobs:
                 # Extract the old and new name values
                 #git show ${{ github.event.before }}:$file
                 old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
-                new_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
+                new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
 
                 echo "$old_value" and "$new_value"
                
