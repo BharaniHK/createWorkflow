@@ -43,10 +43,10 @@ jobs:
                 
                 while IFS= read -r new1; do
                  echo " New Value: '$new1'"
-                 PATTERN="name='\$name1'" 
-                 MATCHING_LINES=$(grep $PATTERN "$file")
+                 PATTERN="name='\$new1'" 
+                 MATCHING_LINES=$(grep "$PATTERN" "$file")
                  echo "$MATCHING_LINES"
-                 line1+=("MATCHING_LINES")
+                 #line1+=("MATCHING_LINES")
                  echo "$MATCHING_LINES"
                  changed_name_values+=("$new1")   
                 done <<< "$new_value"
