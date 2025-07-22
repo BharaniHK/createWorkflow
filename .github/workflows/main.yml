@@ -28,7 +28,14 @@ jobs:
                 old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
                 new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
 
-                echo "$old_value" and "$new_value"
+             #   echo "$old_value" and "$new_value"
+
+              # Print old values
+                echo "Old name values in $file:"
+                while IFS= read -r old1; do
+                  echo " - $old1"
+                done <<< "$old_value"
+
                
                 if [ "$old_value" != "$new_value" ]; then
                   echo "Updated name value: $new_value"
