@@ -1,9 +1,9 @@
 name: Check For Changes to Monitored Files
 
 on:
-  push:
-    branches: 
-       - main
+  #push:
+   # branches: 
+    #   - main
   pull_request:
     branches:
       - main
