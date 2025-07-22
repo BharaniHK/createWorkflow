@@ -28,7 +28,16 @@ jobs:
             if [[ $file == *.html || $file == *.jsx ]]; then
               # Get the differences for the name attribute
                 # Extract the old and new name values
-                #git show ${{ github.event.before }}:$file
+
+                PREVIOUS_LINES=$(git show ${{ github.event.before }}:$file | grep 'name=')
+                CURRENT_LINES=$(git show ${{ github.sha }}:$file | grep 'name=')
+                echo '$PREVIOUS_LINES' prev lines 
+                while IFS= read -r PREVIOUS_LINES; do
+                    a=PREVIOUS_LINES | sed -n 's/.*name="\([^"]*\)".*/\1/p'
+                    echo " Old Value: '$a'"
+                    lines_array+=("$a")
+                done <<< "$old_value"
+                
                 old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
                 new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
 
