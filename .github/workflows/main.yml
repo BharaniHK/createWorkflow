@@ -34,13 +34,13 @@ jobs:
                 echo "Old name values in $file:"
                 while IFS= read -r old1; do
                     #if [ "$old1" != "$new1" ]; then
-                       echo "Changed name value: Old Value: '$old1'
-                       old_values_array+=("$old1")
+                      echo "Changed name value: Old Value: '$old1'
+                     old_values_array+=("$old1")
                     #fi
-                  done <<< "$old_value"
-                 while IFS= read -r new1; do
+                done <<< "$old_value"
+                while IFS= read -r new1; do
                    echo "Changed name value:  New Value: '$new1'"
-                    changed_name_values+=("$new1")
+                   changed_name_values+=("$new1")
                 done <<< "$new_value"
 
               # Print the array of changed name values
