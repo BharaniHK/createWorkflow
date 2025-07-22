@@ -37,15 +37,15 @@ jobs:
                   while IFS= read -r new1; do
                     echo " - $new_value"
                     if [ "$old1" != "$new1" ]; then
-                      echo new value updated  "$new_value"
+                      echo new value updated ---- "$new_value"
                     fi
                   done <<< "$new_values"
                 done <<< "$old_value"
 
                
-                if [ "$old_value" != "$new_value" ]; then
-                  echo "Updated name value: $new_value"
-                  echo "Old name value: $old_value"
-                fi
+               # if [ "$old_value" != "$new_value" ]; then
+                #  echo "Updated name value: $new_value"
+                #  echo "Old name value: $old_value"
+                #fi
             fi
           done
