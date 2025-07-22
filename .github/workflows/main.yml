@@ -29,14 +29,31 @@ jobs:
               # Get the differences for the name attribute
                 # Extract the old and new name values
 
-                PREVIOUS_LINES=$(git show ${{ github.event.before }}:$file | grep 'name=')
-                CURRENT_LINES=$(git show ${{ github.sha }}:$file | grep 'name=')
-                echo "$PREVIOUS_LINES" prev lines 
+                PREVIOUS_LINES=$(git show ${{ github.event.before }}:$file | grep "name=")
+                CURRENT_LINES=$(git show ${{ github.sha }}:$file | grep "name=")
+
+                # Compare the lines
+                if [ "$PREVIOUS_LINES" != "$CURRENT_LINES" ]; then
+                  echo "Changes in '$ATTRIBUTE' attribute values in '$file':"
+                  echo "Previous value(s):"
+                  echo "$PREVIOUS_LINES"
+                  echo "Current value(s):"
+                  echo "$CURRENT_LINES"
+
+                  # Store changed values in the array
+                  CHANGED_VALUES+=("$CURRENT_LINES")
+                  
+                  # Display the lines where the attribute is found
+               #   echo "Lines with 'name' attribute in '$file':"
+                  echo "$CURRENT_LINES"
+                fi
+          
+                
                 while IFS= read -r PREVIOUS_LINES; do
                     a=PREVIOUS_LINES | sed -n 's/.*name="\([^"]*\)".*/\1/p'
                     echo " Old Value: '$a'"
                     lines_array+=("$a")
-                done <<< "$old_value"
+                done <<< "$PREVIOUS_LINES"
                 
                 old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
                 new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
