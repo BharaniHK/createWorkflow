@@ -1,54 +1,72 @@
 name: Check For Changes to Monitored Files
 
 on:
-  
-
-  push:
-    branches: 
-       - main
-    
-      
+  #push:
+   # branches: 
+    #   - main
+  pull_request:
+    branches:
+      - main
+       
 jobs:
   check_changes_and_alert:
     runs-on: ubuntu-latest
 
-    steps:
+    steps: 
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3 
       with:
-        fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
+       fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
 
     - name: Check and Alert if watched files changed
       id: check-and-alert
       run: |
-        # Define the list of filenames to watch for changes
-        if [[ ${{ github.event_name }} == 'pull_request' ]]; then
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          for i in $changed_files; do
-            echo files changed $i
-            if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
-             echo "$i is .jsx file"
-             grep -w 'name' $i
-             git log -p -n 1 -- $i
-            else
-             echo "$i is NOT .jsx or .html file"
-             #git log -p -n 1 -- $i
+        changed_files=$(git diff --name-only HEAD^ HEAD)
+         
+         for file in $changed_files; do
+            if [[ $file == *.html || $file == *.jsx ]]; then
+              # Get the differences for the name attribute
+                # Extract the old and new name values
+                #git show ${{ github.event.before }}:$file
+                old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
+                new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
+
+             #   echo "$old_value" and "$new_value"
+
+              # Print old values
+                echo "Old name values in $file:"
+                while IFS= read -r old1; do
+                      echo " Old Value: '$old1'"
+                     old_values_array+=("$old1")
+                done <<< "$old_value"
+                
+                while IFS= read -r new1; do
+                   echo "Changed name value:  New Value: '$new1'"
+                   changed_name_values+=("$new1")
+                done <<< "$new_value"
+
+              # Print the array of changed name values
+             
+              length1=${#changed_name_values[@]}
+               length2=${#old_values_array[@]}
+               echo "Changed name values and lengeth stored in array: '$length1' and '$length2'"
+              #for value in "${changed_name_values[@]}"; do
+               # echo "$value" --- new values array
+              #done
+              # for value in "${old_values_array[@]}"; do
+               # echo "$value" --- old values array
+              #done
+               # if [ "$old_value" != "$new_value" ]; then
+                #  echo "Updated name value: $new_value"
+                #  echo "Old name value: $old_value"
+                #fi
+              for (( i=0; i<length1; i++ )); do
+                if [ "${changed_name_values[i]}" == "${old_values_array[i]}" ]; then
+                  echo "Index $i: Match found - '${changed_name_values[i]}'"
+                else
+                  echo "Index $i: No match - array1 has '${old_values_array[i]}', array2 has '${changed_name_values[i]}'"
+                fi
+              done
+                
             fi
-          done 
-        else
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }})
-          for i in $changed_files; do
-            echo files changed $i
-            if [[ "$i" = *".jsx" || "$i" = *".html"  ]] ; then
-             echo "$i is .jsx file"
-            # grep -w 'name' $i
-            # git log -p -n 1 -- $i
-            # git log -p -n 1 | grep -iw "name" -- $i
-            git log -p -n 1 -G "name" -- $i
-             git log -p -n 1 -G "id" -- $i
-            else
-             echo "$i is NOT .jsx or .html file"
-             #git log -p -n 1 -- $i
-            fi
-          done 
-        fi
+          done
