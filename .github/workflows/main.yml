@@ -31,7 +31,7 @@ jobs:
 
                 PREVIOUS_LINES=$(git show ${{ github.event.before }}:$file | grep 'name=')
                 CURRENT_LINES=$(git show ${{ github.sha }}:$file | grep 'name=')
-                echo '$PREVIOUS_LINES' prev lines 
+                echo "$PREVIOUS_LINES" prev lines 
                 while IFS= read -r PREVIOUS_LINES; do
                     a=PREVIOUS_LINES | sed -n 's/.*name="\([^"]*\)".*/\1/p'
                     echo " Old Value: '$a'"
