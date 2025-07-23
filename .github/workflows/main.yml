@@ -42,8 +42,10 @@ jobs:
                  old_values_array+=("$old1")   
                 #  grep 'name=\$old1' $file1
                   pattern=(name=$old1)
-                  echo $pattern "pattern is "
-                  line=$(git show ${{ github.sha }}:$file | grep -E "'$old1'")
+                  echo "Using commit SHA: ${{ github.sha }}"
+                  echo "Searching in file: $file"
+                  echo "Using pattern: name=$old1"
+                  line=$(git show ${{ github.sha }}:$file | grep -E "name=$old1")
                   echo "$line"
                 done <<< "$old_value"
                 
