@@ -42,7 +42,8 @@ jobs:
                  old_values_array+=("$old1")   
                 #  grep 'name=\$old1' $file1
                   pattern="name=$old1"
-                  line=$(grep "$pattern" "$file")
+                  echo $file
+                 # line=$(grep "$pattern" "$file")
                   #echo "$line"
                 done <<< "$old_value"
                 
