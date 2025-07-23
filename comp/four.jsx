@@ -5,8 +5,8 @@ export const Four=()=>{
       <div>
     <label id="four">Second</label>
     <label name="new_updated_fourName7">Second</label>
-    <span name="dev_span6">abc</span>
-    <p name="four4">Second </p> 
+    <span name="dev_span7">abc</span>
+    <p name="four4">Second k</p> 
     <label id= "four3">Second</label>
     </div>
   )
