@@ -73,7 +73,7 @@ jobs:
                 #fi
               for (( i=0; i<length1; i++ )); do
                 if [ "${changed_name_values[i]}" != "${old_values_array[i]}" ]; then
-                 git log -p -1 --oneline --pickaxe-regex -S "${changed_name_values[i]}" ${file}
+                 git log -p -1 --oneline --pickaxe-regex -S "${changed_name_values[i]}" ${file} | grep -E "^\+|^-"
                  echo "Index $i: Name Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_name_values[i]}'"
               
                   #echo "Index $i: Name attributes that are matching - '${changed_name_values[i]}'"
