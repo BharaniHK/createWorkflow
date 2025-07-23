@@ -35,12 +35,12 @@ jobs:
               # Print old values
                 echo "FileName: $file:"
                 while IFS= read -r old1; do
-                 echo " Old Value: '$old1'"
+                # echo " Old Value: '$old1'"
                  old_values_array+=("$old1") 
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
-                 echo " New Value: '$new1'"    
+               #  echo " New Value: '$new1'"    
                  changed_name_values+=("$new1")   
                  done <<< "$new_value"
 
