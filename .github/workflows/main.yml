@@ -40,7 +40,7 @@ jobs:
                 while IFS= read -r old1; do
                  echo " Old Value: '$old1'"
                  old_values_array+=("$old1")   
-                  old_line1=grep 'name=\$old1' $file
+                  old_line1=$(git show ${{ github.event.before }}:$file | grep -E 'name=\$old1')
                   echo "$old_line1" in a array
                 done <<< "$old_value"
                 
