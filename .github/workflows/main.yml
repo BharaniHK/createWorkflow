@@ -40,25 +40,20 @@ jobs:
                 while IFS= read -r old1; do
                  echo " Old Value: '$old1'"
                  old_values_array+=("$old1")   
-                #  grep 'name=\$old1' $file1
-                  pattern=(name=$old1)
-                  echo "Using commit SHA: ${{ github.sha }}"
-                  echo "Searching in file: $file"
-                  echo "Using pattern: name=$old1"
-                   
-                   content=$(git show ${{ github.sha }}:"$file")
-
-                  # Use grep to check for the pattern with the variable
-                  if echo "$content" | grep -q -E "name=$old1"; then
-                    echo "Matches found for pattern 'name=$old1'."
-                  else
-                    echo "No matches found for pattern 'name=$old1'."
-                  fi
+                 
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
                  echo " New Value: '$new1'"    
                  changed_name_values+=("$new1")   
+                 content=$(git show ${{ github.sha }}:"$file")
+
+                  # Use grep to check for the pattern with the variable
+                  if echo "$content" | grep -q -E "name=$new1"; then
+                    echo "Matches found for pattern 'name=$new1'."
+                  else
+                    echo "No matches found for pattern 'name=$new1'."
+                  fi
                 done <<< "$new_value"
 
               # Print the array of changed name values
