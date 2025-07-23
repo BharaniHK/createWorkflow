@@ -6,7 +6,7 @@ function App() {
   }
   return(
     <div> 12345
-      <p name="new_dev15">First1</p> 
+      <p name="new_dev1">First1</p> 
        <p id="first_id1">First</p>
       <form>  
         <input name="input_name" id="uid1" value="abcd"></input>
