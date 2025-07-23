@@ -46,6 +46,12 @@ jobs:
                   echo "Searching in file: $file"
                   echo "Using pattern: name=$old1"
                   line=$(git show ${{ github.sha }}:$file | grep -E "name=$old1")
+                   if [ $? -ne 0 ]; then
+                      echo "No matches found."
+                    else
+                      echo "Matches found:"
+                      echo "$line"  # Print the matching lines
+                  fi
                   echo "$line"
                 done <<< "$old_value"
                 
