@@ -40,8 +40,9 @@ jobs:
                 while IFS= read -r old1; do
                  echo " Old Value: '$old1'"
                  old_values_array+=("$old1")   
-                  grep 'name=\$old1' $file1
-                 # echo "$old_line1" in a array
+                #  grep 'name=\$old1' $file1
+                  pattern = 'name=\$old1'
+                 echo "$pattern" in a array
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
