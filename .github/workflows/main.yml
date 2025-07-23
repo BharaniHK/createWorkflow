@@ -46,14 +46,14 @@ jobs:
                 while IFS= read -r new1; do
                  echo " New Value: '$new1'"    
                  changed_name_values+=("$new1")   
-                 content=$(git show ${{ github.sha }}:"$file")
+                 #content=$(git show ${{ github.sha }}:"$file")
 
                   # Use grep to check for the pattern with the variable
-                  if echo "$content" | grep -q -E "name=$new1"; then
-                    echo "Matches found for pattern 'name=$new1'."
-                  else
-                    echo "No matches found for pattern 'name=$new1'."
-                  fi
+                 # if echo "$content" | grep -q -E "name="; then
+                  #  echo "Matches found for pattern 'name=$new1'."
+                  #else
+                   # echo "No matches found for pattern 'name=$new1'."
+                  #fi
                 done <<< "$new_value"
 
               # Print the array of changed name values
@@ -73,7 +73,8 @@ jobs:
                 #fi
               for (( i=0; i<length1; i++ )); do
                 if [ "${changed_name_values[i]}" != "${old_values_array[i]}" ]; then
-                    echo "Index $i: Name Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_name_values[i]}'"
+                 git log -p -1 --oneline --pickaxe-regex -S "${old_values_array[i]}" ${file}
+                 echo "Index $i: Name Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_name_values[i]}'"
               
                   #echo "Index $i: Name attributes that are matching - '${changed_name_values[i]}'"
                 
