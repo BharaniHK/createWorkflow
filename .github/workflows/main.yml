@@ -30,8 +30,9 @@ jobs:
                 # Extract the old and new name values
                 
                 old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
+                old_line==$(git show ${{ github.event.before }}:$file | grep -E 'name=' )
                 new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
-
+                echo "$old_line" and old line
              #   echo "$old_value" and "$new_value"
 
               # Print old values
@@ -42,12 +43,7 @@ jobs:
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
-                 echo " New Value: '$new1'"
-                 PATTERN="name='\$new1'" 
-                 MATCHING_LINES=$(grep "$PATTERN" "$file")
-                 echo "$MATCHING_LINES"
-                 #line1+=("MATCHING_LINES")
-                 echo "$MATCHING_LINES"
+                 echo " New Value: '$new1'"    
                  changed_name_values+=("$new1")   
                 done <<< "$new_value"
 
