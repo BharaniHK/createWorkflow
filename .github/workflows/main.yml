@@ -42,7 +42,7 @@ jobs:
                  old_values_array+=("$old1")   
                 #  grep 'name=\$old1' $file1
                 #  pattern = 'name=${old1}'
-                 echo 'name=${old1}' in a array
+                 echo 'name="$old1"' in a array
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
