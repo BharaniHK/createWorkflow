@@ -45,14 +45,15 @@ jobs:
                   echo "Using commit SHA: ${{ github.sha }}"
                   echo "Searching in file: $file"
                   echo "Using pattern: name=$old1"
-                  line=$(git show ${{ github.sha }}:$file | grep -E "name=$old1")
-                   if [ $? -ne 0 ]; then
-                      echo "No matches found."
-                    else
-                      echo "Matches found:"
-                      echo "$line"  # Print the matching lines
+                   
+                   content=$(git show ${{ github.sha }}:"$file")
+
+                  # Use grep to check for the pattern with the variable
+                  if echo "$content" | grep -q -E "name=$old1"; then
+                    echo "Matches found for pattern 'name=$old1'."
+                  else
+                    echo "No matches found for pattern 'name=$old1'."
                   fi
-                  echo "$line"
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
