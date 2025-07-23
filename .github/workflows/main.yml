@@ -41,7 +41,7 @@ jobs:
                  echo " Old Value: '$old1'"
                  old_values_array+=("$old1")   
                 #  grep 'name=\$old1' $file1
-                 pattern = 'name=$old1'
+                 pattern='name=$old1'
                  echo pattern is "$pattern"
                  echo 'name=$old1' in a array
                 done <<< "$old_value"
