@@ -43,8 +43,7 @@ jobs:
                 #  grep 'name=\$old1' $file1
                   pattern=(name=$old1)
                   echo $pattern "pattern is "
-                  grep -E "$pattern" && echo "hello"
-                  line=$(git show ${{ github.sha }}:$file | grep -E name=new)
+                  line=$(git show ${{ github.sha }}:$file | grep -E $old1)
                   echo "$line"
                 done <<< "$old_value"
                 
