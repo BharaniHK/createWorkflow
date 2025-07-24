@@ -71,7 +71,7 @@ jobs:
                 if [ "${changed_id_values[i]}" != "${old_values_array[i]}"  ]; then
                 
                 git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_id_values}" ${file} | grep -E "${changed_id_values}"
-               echo "old value before" "$old_values_array[i]" 
+                  echo "old value before" "$old_values_array[i]" 
                     echo "new value before" "$changed_id_values[i]" 
                   echo "Index $i: ID Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_id_values[i]}'"
                 
@@ -79,7 +79,7 @@ jobs:
                 
                  #if grep -qE "$git_log_output" "$file"; then
                  #fi
-                 
+                 fi
                 fi
               done
              # echo "The lines where value of id attribute is updated from the codebase is:"
