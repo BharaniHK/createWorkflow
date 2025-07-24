@@ -64,11 +64,13 @@ jobs:
                 #fi
 
              #----------------------------------------------------------------------------
-
+            
              #To find the difference between changed and updated values of name attribute
               for (( i=0; i<length1; i++ )); do
                 if [ "${changed_id_values[i]}" != "${old_values_array[i]}" ]; then
                  echo "The line where value of id attribute is updated:"
+                 echo "${changed_name_values[i]}"
+                 echo "${old_values_array[i]}"
                  git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_name_values[i]}" ${file} | grep -E "${changed_name_values[i]}"
                 
                  #if grep -qE "$git_log_output" "$file"; then
