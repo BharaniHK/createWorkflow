@@ -67,13 +67,12 @@ jobs:
             
              #To find the difference between changed and updated values of name attribute
               for (( i=0; i<length1; i++ )); do
-                if ["${changed_id_values[i]}" != "${old_values_array[i]}" ]; then
-                # if [[ "${changed_id_values[i]}" != "${old_values_array[i]}" && "$length1" == "$length2" ]]; then
+                if [ "${changed_name_values[i]}" != "${old_values_array[i]}" ]; then
+                  echo "Index $i: ID Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_name_values[i]}'"
                 
                  #git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_id_values[i]}" ${file} | grep -E "${changed_name_values[i]}"
                 
                  #if grep -qE "$git_log_output" "$file"; then
-                  echo "Index $i: ID Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_name_values[i]}'"
                  #fi
                  
                 fi
