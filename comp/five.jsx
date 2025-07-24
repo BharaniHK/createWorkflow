@@ -3,9 +3,9 @@ import React from 'react'
 export Five =()=>{
 
   return(<>
-   <span name="new_updated_name">Five component NAM</span>
+   <span name="new_updated_name9">Five component NAM</span>
     <p name="Oldvalue6">Hello world</p> 
-    <p id="id18">Five component ID</p>
+    <p id="id19">Five component ID</p>
     <p id="id3">Five component ID</p>
     <p id="id4">Five component ID</p>
      <p id="id6">Five component ID</p>
