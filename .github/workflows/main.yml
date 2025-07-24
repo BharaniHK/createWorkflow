@@ -81,7 +81,6 @@ jobs:
                 fi
               done
              # echo "The lines where value of id attribute is updated from the codebase is:"
-            git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_id_values}" ${file} | grep -E "${changed_name_values}"
-            # git log -p --${file} | grep -E '(^\+.*name:|^\-.*name:)'
+            git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_id_values}" ${file} | grep -E "${changed_id_values}"
             fi
           done
