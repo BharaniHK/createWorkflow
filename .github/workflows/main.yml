@@ -71,8 +71,8 @@ jobs:
                 if [ "${changed_name_values[i]}" != "${old_values_array[i]}" ]; then
                  echo "The line where value of name attribute is updated:"
                  git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_name_values[i]}" ${file} | grep -E "${changed_name_values[i]}"
-                 line_to_check='<input name="[^"]*">ABC</input>'
-                 if grep -qE "$line_to_check" "$file"; then
+                
+                 if grep -qE "$git_log_output" "$file"; then
                   echo "Index $i: Name Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_name_values[i]}'"
                  fi
                 fi
