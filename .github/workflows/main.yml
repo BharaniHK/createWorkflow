@@ -67,6 +67,8 @@ jobs:
              #----------------------------------------------------------------------------
             
              #To find the difference between changed and updated values of name attribute
+             echo "$changed_id_values" new values "$length1"
+             echo "$old_values_array" old values "$length2"
               for (( i=0; i<length1; i++ )); do
                 if ["${changed_id_values[i]}" != "${old_values_array[i]}" ]; then
                 # if [[ "${changed_id_values[i]}" != "${old_values_array[i]}" && "$length1" == "$length2" ]]; then
