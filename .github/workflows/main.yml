@@ -36,7 +36,7 @@ jobs:
                 echo "FileName: $file:"
                 while IFS= read -r old1; do
                 # echo " Old Value: '$old1'"
-            #     git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${old1}" ${file} | grep -E "${old1}"
+                git_log_output= git log -p -1 HEAD~1 --oneline --pickaxe-regex -S "${old1}" ${file} | grep -E "${old1}"
              #   echo output is
                  old_values_array+=("$old1") 
                 done <<< "$old_value"
@@ -70,7 +70,7 @@ jobs:
               for (( i=0; i<length1; i++ )); do
                 if [ "${changed_name_values[i]}" != "${old_values_array[i]}" ]; then
                  echo "The line where value of name attribute is updated:"
-                 git_log_output= git log -p HEAD~1 --oneline --pickaxe-regex -S "${changed_name_values[i]}" ${file} | grep -E "${changed_name_values[i]}"
+                 git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_name_values[i]}" ${file} | grep -E "${changed_name_values[i]}"
                 
                  #if grep -qE "$git_log_output" "$file"; then
                   echo "Index $i: Name Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_name_values[i]}'"
