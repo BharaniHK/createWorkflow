@@ -67,9 +67,9 @@ jobs:
             
              #To find the difference between changed and updated values of name attribute
               for (( i=0; i<length1; i++ )); do
-                if [[ "${changed_id_values[i]}" != "${old_values_array[i]}" ]]; then
-                 # git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_id_values[i]}" ${file} | grep -E "${changed_name_values[i]}"
-                   echo "old value before" "$old_values_array[i]" 
+                if [[ "${changed_id_values[i]}" != "${old_values_array[i]}"   && "{$length1}"=="{$length2}"]]; then
+                git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_id_values}" ${file} | grep -E "${changed_id_values}"
+               echo "old value before" "$old_values_array[i]" 
                     echo "new value before" "$changed_id_values[i]" 
                   echo "Index $i: ID Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_id_values[i]}'"
                 
@@ -81,6 +81,6 @@ jobs:
                 fi
               done
              # echo "The lines where value of id attribute is updated from the codebase is:"
-            git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_id_values}" ${file} | grep -E "${changed_id_values}"
+            git_log_output= git log -p -1 --pickaxe-regex -S "${changed_id_values}" ${file} | grep -E "${changed_id_values}"
             fi
           done
