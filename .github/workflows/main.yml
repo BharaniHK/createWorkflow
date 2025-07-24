@@ -29,25 +29,25 @@ jobs:
               # Get the differences for the name attribute
                 # Extract the old and new name values
                 
-                old_value=$(git show ${{ github.event.before }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
-                new_value=$(git show ${{ github.sha }}:$file | grep -E 'name=' | sed -n 's/.*name="\([^"]*\)".*/\1/p' )
+                old_value=$(git show ${{ github.event.before }}:$file | grep -E 'id=' | sed -n 's/.*id="\([^"]*\)".*/\1/p' )
+                new_value=$(git show ${{ github.sha }}:$file | grep -E 'id=' | sed -n 's/.*id="\([^"]*\)".*/\1/p' )
            
               # Print old values
                 echo "FileName: $file:"
                 while IFS= read -r old1; do
                 # echo " Old Value: '$old1'"
-                git log -p -1 HEAD~1 --oneline --pickaxe-regex -S "${old1}" ${file} | grep -E "${old1}" | sed '/^+/s/^+//; /name=/d'
+               # git log -p -1 HEAD~1 --oneline --pickaxe-regex -S "${old1}" ${file} | grep -E "${old1}" | sed '/^+/s/^+//; /name=/d'
                  old_values_array+=("$old1") 
                 done <<< "$old_value"
                 
                 while IFS= read -r new1; do
                #  echo " New Value: '$new1'"    
-                 changed_name_values+=("$new1")   
+                 changed_id_values+=("$new1")   
                  done <<< "$new_value"
 
               # Print the array of changed name values
              
-               length1=${#changed_name_values[@]}
+               length1=${#changed_id_values[@]}
                length2=${#old_values_array[@]}
                echo "Changed name values and lengeth stored in array: '$length1' and '$length2'"
 
@@ -59,20 +59,20 @@ jobs:
                #  echo "$value" --- old values array
               #done
                # if [ "$old_value" != "$new_value" ]; then
-                #  echo "Updated name value: $new_value"
-                #  echo "Old name value: $old_value"
+                #  echo "Updated id value: $new_value"
+                #  echo "Old id value: $old_value"
                 #fi
 
              #----------------------------------------------------------------------------
 
              #To find the difference between changed and updated values of name attribute
               for (( i=0; i<length1; i++ )); do
-                if [ "${changed_name_values[i]}" != "${old_values_array[i]}" ]; then
-                 echo "The line where value of name attribute is updated:"
+                if [ "${changed_id_values[i]}" != "${old_values_array[i]}" ]; then
+                 echo "The line where value of id attribute is updated:"
                  git_log_output= git log -p -1 --oneline --pickaxe-regex -S "${changed_name_values[i]}" ${file} | grep -E "${changed_name_values[i]}"
                 
                  #if grep -qE "$git_log_output" "$file"; then
-                  echo "Index $i: Name Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_name_values[i]}'"
+                  echo "Index $i: ID Attributes that are updated -  '${old_values_array[i]}' is updated to '${changed_name_values[i]}'"
                  #fi
                 fi
               done
