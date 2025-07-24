@@ -4,7 +4,7 @@ export Five =()=>{
 
   return(<>
    <span name="new_updated_name">Five component NAM</span>
-    <p name="Oldvalue1">Hello world</p> 
+    <p name="Oldvalue">Hello world</p> 
     <p id="id7">Five component ID</p>
     <p id="id3">Five component ID</p>
     <p id="id4">Five component ID</p>
