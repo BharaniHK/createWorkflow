@@ -31,7 +31,8 @@ jobs:
                 
                 old_value=$(git show ${{ github.event.before }}:$file | grep -E 'id=' | sed -n 's/.*id="\([^"]*\)".*/\1/p' )
                 new_value=$(git show ${{ github.sha }}:$file | grep -E 'id=' | sed -n 's/.*id="\([^"]*\)".*/\1/p' )
-           
+
+                 echo "$new_value" new value
               # Print old values
                 echo "FileName: $file:"
                 while IFS= read -r old1; do
