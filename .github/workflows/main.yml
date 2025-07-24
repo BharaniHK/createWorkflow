@@ -36,7 +36,7 @@ jobs:
                 echo "FileName: $file:"
                 while IFS= read -r old1; do
                 # echo " Old Value: '$old1'"
-                (git log -p -1 HEAD~1 --oneline --pickaxe-regex -S "${old1}" ${file} | grep -E "${old1}" | sed 's/^+//')
+                (git log -p -1 HEAD~1 --oneline --pickaxe-regex -S "${old1}" ${file} | grep -E "${old1}" | sed '/^+/s/^+//; /name=/d')
                  old_values_array+=("$old1") 
                 done <<< "$old_value"
                 
